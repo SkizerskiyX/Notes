@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Note.API/Note.API.csproj" />
+  <Project Path="NoteDatabase/NoteDatabase.csproj" Id="ef46fef9-dc1d-4d78-8ded-57bf7011350c" />
+  <Project Path="NoteModels/NoteModels.csproj" />
+  <Project Path="NotesServices/NotesServices.csproj" Id="9420040f-6a1f-46a1-a6d8-da7ccc71b127" />
+</Solution>
