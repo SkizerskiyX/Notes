@@ -1,0 +1,66 @@
+public class NoteServiceTests
+{
+    private readonly Mock<INoteRepository> _repositoryMock;
+    private readonly NoteService _service;
+
+    public NoteServiceTests()
+    {
+        _repositoryMock = new Mock<INoteRepository>();
+        _service = new NoteService(_repositoryMock.Object);
+    }
+    
+[Fact]
+public async Task GetAllAsync_ReturnsNotes()
+{
+    var notes = new List<Note> { new Note("Header", "Text") };
+    _repositoryMock.Setup(r => r.GetAllAsync()).ReturnsAsync(notes);
+
+    var result = await _service.GetAllAsync();
+
+    Assert.NotEmpty(result);
+}
+
+[Fact]
+public async Task GetByIdAsync_ReturnsNote_WhenExists()
+{
+    var note = new Note("Header", "Text");
+    _repositoryMock.Setup(r => r.GetByIdAsync(note.Id)).ReturnsAsync(note);
+
+    var result = await _service.GetByIdAsync(note.Id);
+
+    Assert.NotNull(result);
+    Assert.Equal(note.Id, result.Id);
+}
+
+[Fact]
+public async Task GetByIdAsync_ReturnsNull_WhenNotExists()
+{
+    _repositoryMock.Setup(r => r.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync((Note?)null);
+
+    var result = await _service.GetByIdAsync(Guid.NewGuid());
+
+    Assert.Null(result);
+}
+
+[Fact]
+public async Task AddNoteAsync_ReturnsCreatedNote()
+{
+    var note = new Note("Header", "Text");
+    _repositoryMock.Setup(r => r.AddNoteAsync(note)).ReturnsAsync(note);
+
+    var result = await _service.AddNoteAsync(note);
+
+    Assert.Equal(note.Header, result.Header);
+}
+
+[Fact]
+public async Task DeleteNoteAsync_CallsRepository()
+{
+    var id = Guid.NewGuid();
+    _repositoryMock.Setup(r => r.DeleteNoteAsync(id)).Returns(Task.CompletedTask);
+
+    await _service.DeleteNoteAsync(id);
+
+    _repositoryMock.Verify(r => r.DeleteNoteAsync(id), Times.Once);
+}
+}

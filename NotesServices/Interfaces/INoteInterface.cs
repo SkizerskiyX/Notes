@@ -7,13 +7,13 @@ namespace NotesServices.Interfaces
 {
     public interface INoteService 
     {
-        Task<IEnumerable<Note>> GetAllAsync();
-        Task<Note?> GetByIdAsync(Guid id);
+        Task<IEnumerable<Note>> GetAllAsync(Guid userId);
+        Task<Note?> GetByIdAsync(Guid id, Guid userId);
 
-        Task<Note> AddNoteAsync(Note note);
+        Task<Note> AddNoteAsync(Note note, Guid userId);
 
-        Task<Note> UpdateNoteAsync(Guid id, Note note);
+        Task<Note> UpdateNoteAsync(Guid id, Note note, Guid userId);
 
-        Task DeleteNoteAsync(Guid id);
+        Task DeleteNoteAsync(Guid id, Guid userId);
     }
 }

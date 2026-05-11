@@ -10,6 +10,7 @@ namespace NoteModels.Models
       public const int MAX_TEXT_LENGHT = 250;
         public Guid Id { get; set; } = Guid.CreateVersion7();
         public string Header { get; set; } = string.Empty;
+        public Guid UserId { get; set; }
         public string Text { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
@@ -36,10 +37,6 @@ namespace NoteModels.Models
             IsPinned = isPinned;
             IsDeleted = false;
         }
-
-        
-        
-                
         private Note() { }
     }
 }

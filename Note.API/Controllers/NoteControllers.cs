@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NoteModels.Dto;
 using NotesServices.Interfaces;
 
 namespace Note.API.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/[controller]")]
     public class NoteController : ControllerBase
     {
@@ -18,7 +21,8 @@ namespace Note.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var notes = await _noteService.GetAllAsync();
+            var userId = GetUserId();
+            var notes = await _noteService.GetAllAsync(userId);
             return Ok(notes);
         }
 
@@ -26,7 +30,8 @@ namespace Note.API.Controllers
 
         public async Task<IActionResult> GetById(Guid id)
         {
-            var note = await _noteService.GetByIdAsync(id);
+            var userId = GetUserId();
+            var note = await _noteService.GetByIdAsync(id, userId);
             if (note == null)
                 return NotFound();
             return Ok(note);
@@ -37,7 +42,8 @@ namespace Note.API.Controllers
         {
             var note = new NoteModels.Models.Note(noteDto.Header, noteDto.Text);
 
-            var createdNote = await _noteService.AddNoteAsync(note);
+            var userId = GetUserId();
+            var createdNote = await _noteService.AddNoteAsync(note, userId);
             return CreatedAtAction(nameof(GetById), new { id = createdNote.Id }, createdNote);
         }
 
@@ -50,7 +56,8 @@ namespace Note.API.Controllers
                 {
                     IsPinned = noteDto.isPinned
                 };
-                var updatedNote = await _noteService.UpdateNoteAsync(id, note);
+                var userId = GetUserId();
+                var updatedNote = await _noteService.UpdateNoteAsync(id, note, userId);
                 return Ok(updatedNote);
             }
             catch (InvalidOperationException)
@@ -62,9 +69,21 @@ namespace Note.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await _noteService.DeleteNoteAsync(id);
+            var userId = GetUserId();
+            await _noteService.DeleteNoteAsync(id, userId);
             return NoContent();
 
+        }
+
+        private Guid GetUserId()
+        {
+            var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? User.FindFirstValue("sub");
+            if (!Guid.TryParse(userIdClaim, out var userId))
+            {
+                throw new UnauthorizedAccessException("Invalid user identity.");
+            }
+
+            return userId;
         }
     }
 }
