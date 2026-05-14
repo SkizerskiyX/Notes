@@ -2,6 +2,14 @@
 
 Full-stack notes application: **ASP.NET Core** REST API, **PostgreSQL** with **Entity Framework Core**, **JWT** access and refresh tokens, and a **React (Vite)** client.
 
+## Screenshots
+
+Dark theme: sign-in / register, then the notes workspace (sidebar, search, create, view & edit, pin, delete, theme toggle, sign out).
+
+![Sign-in and register](docs/screenshots/auth-sign-in.png)
+
+![Notes workspace with a selected note](docs/screenshots/notes-main.png)
+
 ---
 
 ## English
@@ -13,16 +21,6 @@ Full-stack notes application: **ASP.NET Core** REST API, **PostgreSQL** with **E
 - Optional pinning and search in the web client
 - CORS enabled for the Vite dev server (`http://localhost:5173`)
 - In **Development**, OpenAPI and a **Scalar** API reference UI are mapped from the API project
-
-### Screenshots
-
-Sign-in and registration (dark theme):
-
-![Sign-in screen](docs/screenshots/auth-sign-in.png)
-
-Notes workspace — create, search, pin, and theme toggle:
-
-![My Notes main screen](docs/screenshots/notes-main.png)
 
 ### Repository layout
 
@@ -111,16 +109,6 @@ dotnet test Notes.Tests/Notes.Tests.csproj
 - В веб-клиенте: закрепление заметок и поиск по тексту
 - CORS для dev-сервера Vite (`http://localhost:5173`)
 - В среде **Development** доступны OpenAPI и документация **Scalar** из проекта API
-
-### Скриншоты
-
-Вход и регистрация (тёмная тема):
-
-![Экран входа](docs/screenshots/auth-sign-in.png)
-
-Рабочая область заметок — создание, поиск, закрепление и переключение темы:
-
-![Главный экран «Мои заметки»](docs/screenshots/notes-main.png)
 
 ### Структура репозитория
 
