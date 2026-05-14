@@ -14,6 +14,16 @@ Full-stack notes application: **ASP.NET Core** REST API, **PostgreSQL** with **E
 - CORS enabled for the Vite dev server (`http://localhost:5173`)
 - In **Development**, OpenAPI and a **Scalar** API reference UI are mapped from the API project
 
+### Screenshots
+
+Sign-in and registration (dark theme):
+
+![Sign-in screen](docs/screenshots/auth-sign-in.png)
+
+Notes workspace — create, search, pin, and theme toggle:
+
+![My Notes main screen](docs/screenshots/notes-main.png)
+
 ### Repository layout
 
 | Path | Role |
@@ -24,6 +34,7 @@ Full-stack notes application: **ASP.NET Core** REST API, **PostgreSQL** with **E
 | `NotesServices` | Business logic (notes and auth) |
 | `Notes.Tests` | Unit tests |
 | `client` | React + Vite SPA (`axios` for HTTP) |
+| `docs/screenshots` | UI images used in this README |
 
 ### Prerequisites
 
@@ -101,6 +112,16 @@ dotnet test Notes.Tests/Notes.Tests.csproj
 - CORS для dev-сервера Vite (`http://localhost:5173`)
 - В среде **Development** доступны OpenAPI и документация **Scalar** из проекта API
 
+### Скриншоты
+
+Вход и регистрация (тёмная тема):
+
+![Экран входа](docs/screenshots/auth-sign-in.png)
+
+Рабочая область заметок — создание, поиск, закрепление и переключение темы:
+
+![Главный экран «Мои заметки»](docs/screenshots/notes-main.png)
+
 ### Структура репозитория
 
 | Путь | Назначение |
@@ -111,6 +132,7 @@ dotnet test Notes.Tests/Notes.Tests.csproj
 | `NotesServices` | Сервисный слой (заметки и аутентификация) |
 | `Notes.Tests` | Юнит-тесты |
 | `client` | SPA на React + Vite (HTTP через `axios`) |
+| `docs/screenshots` | Скриншоты интерфейса для README |
 
 ### Требования
 
